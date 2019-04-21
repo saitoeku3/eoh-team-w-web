@@ -1,8 +1,8 @@
 <template>
   <div class="wrapper">
     <ul>
-      <li v-for="event in events" >
-        {{event}}
+      <li v-for="event in events">
+        {{ event }}
       </li>
     </ul>
   </div>
@@ -24,8 +24,8 @@ export default class index extends Vue {}
 </script>
 
 <style lang="scss">
-  .wrapper {
-    height: 100vh;
-    width: 100vw;
-  }
+.wrapper {
+  height: 100vh;
+  width: 100vw;
+}
 </style>

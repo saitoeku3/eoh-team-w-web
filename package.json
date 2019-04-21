@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
-    "format": "prettier --ignore-path 'node_modules' --write '*.{ts,vue}'",
+    "format": "prettier --write 'src/**/*.{ts,vue}'",
     "start": "nuxt start"
   },
   "dependencies": {
