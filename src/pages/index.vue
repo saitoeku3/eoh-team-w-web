@@ -5,11 +5,16 @@
     <EventCard class="event" :event="events[index]" />
     <a class="btn" @click="displayNextEvent">&gt;</a>
     <TimeLine class="time-line" :index="index" :eventsLength="events.length" />
+    <GlobalEvents
+      @keyup.left="displayPreviousEvent"
+      @keyup.right="displayNextEvent"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import GlobalEvents from 'vue-global-events'
 
 import EventCard from '~/components/EventCard.vue'
 import TimeLine from '~/components/TimeLine.vue'
@@ -19,6 +24,7 @@ import { Event } from '~/types'
 @Component({
   components: {
     EventCard,
+    GlobalEvents,
     Header,
     TimeLine
   },
@@ -28,6 +34,10 @@ import { Event } from '~/types'
 })
 export default class Index extends Vue {
   index: number = 0
+
+  get events(): Event[] {
+    return this.$store.getters.events
+  }
 
   displayNextEvent() {
     if (this.events.length - 1 > this.index) {
@@ -39,10 +49,6 @@ export default class Index extends Vue {
     if (this.index > 0) {
       this.index--
     }
-  }
-
-  get events(): Event[] {
-    return this.$store.getters.events
   }
 }
 </script>
