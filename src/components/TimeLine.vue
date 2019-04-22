@@ -1,6 +1,6 @@
 <template>
   <DarkBar class="wrapper">
-    <svg width="900" height="100">
+    <svg width="900" height="40">
       <line
         x1="0"
         y1="24"
@@ -12,7 +12,7 @@
       <line
         x1="0"
         y1="24"
-        :x2="index * 100"
+        :x2="(900 / (eventsLength - 1)) * index"
         y2="24"
         stroke="#485260"
         stroke-width="5"
@@ -33,11 +33,13 @@ import DarkBar from '~/components/DarkBar.vue'
 })
 export default class TimeLine extends Vue {
   @Prop(Number) index!: number
+  @Prop(Number) eventsLength!: number
 }
 </script>
 
 <style lang="scss" scoped>
 .wrapper {
   text-align: center;
+  color: aliceblue;
 }
 </style>

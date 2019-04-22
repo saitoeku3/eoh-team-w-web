@@ -1,15 +1,16 @@
 <template>
   <div class="container">
     <Header class="header" />
-    <EventCard class="event" :event="events[1]" />
-    <button @click="displayPreviousEvent">&lt;</button>
-    <button @click="displayNextEvent">&gt;</button>
-    <TimeLine class="time-line" :index="index" />
+    <a class="btn" @click="displayPreviousEvent">&lt;</a>
+    <EventCard class="event" :event="events[index]" />
+    <a class="btn" @click="displayNextEvent">&gt;</a>
+    <TimeLine class="time-line" :index="index" :eventsLength="events.length" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+
 import EventCard from '~/components/EventCard.vue'
 import TimeLine from '~/components/TimeLine.vue'
 import Header from '~/components/Header.vue'
@@ -29,11 +30,15 @@ export default class Index extends Vue {
   index: number = 0
 
   displayNextEvent() {
-    this.index++
+    if (this.events.length - 1 > this.index) {
+      this.index++
+    }
   }
 
   displayPreviousEvent() {
-    this.index--
+    if (this.index > 0) {
+      this.index--
+    }
   }
 
   get events(): Event[] {
@@ -60,5 +65,13 @@ export default class Index extends Vue {
 .time-line {
   position: absolute;
   bottom: 0;
+}
+
+.btn {
+  color: #fff;
+  cursor: pointer;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 4vw;
 }
 </style>

@@ -30,7 +30,7 @@ export default class EventCard extends Vue {
 }
 
 .event-img {
-  height: 300px;
+  height: 15vw;
 }
 
 .event-name {
