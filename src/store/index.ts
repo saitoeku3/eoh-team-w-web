@@ -1,14 +1,7 @@
 import firebase from '~/plugins/firebase'
+import { Event } from '~/types'
 
 const db = firebase.firestore()
-
-type Event = {
-  id: string
-  name: string
-  desc: string
-  imageURL: string
-  wareki: number
-}
 
 type State = {
   events: Event[]
@@ -19,16 +12,7 @@ type Getters = {
 }
 
 export const state = (): State => ({
-  events: [
-    {
-      desc: 'This is test',
-      id: 'xydXJGMsarNukwrw26Pi',
-      imageURL:
-        'https://dol.ismcdn.jp/mwimgs/6/b/670m/img_6b201e1a7a266ad253bf473f846d695e67132.jpg',
-      name: 'test event',
-      wareki: 0
-    }
-  ]
+  events: []
 })
 
 export const getters: Getters = {
@@ -53,8 +37,8 @@ export const actions = {
     const snapshots = await db.collection('events').get()
     snapshots.forEach(snapshot => {
       const id = snapshot.id
-      const { desc, name, imageURL, wareki } = snapshot.data()
-      const event: Event = { desc, id, name, imageURL, wareki }
+      const { desc, name, image_url, wareki } = snapshot.data()
+      const event: Event = { desc, id, name, imageUrl: image_url, wareki }
       events.push(event)
     })
     commit('setEvents', { events })
@@ -67,12 +51,12 @@ export const actions = {
         if (index === -1) {
           return
         } else {
-          const { id, name, desc, imageURL, wareki } = doc.data()
+          const { id, name, desc, image_url, wareki } = doc.data()
           const event: Event = {
             id,
             name,
             desc,
-            imageURL,
+            imageUrl: image_url,
             wareki
           }
           commit('editEvent', { event, index })
