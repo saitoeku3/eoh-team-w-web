@@ -1,5 +1,6 @@
 <template>
   <DarkBar class="wrapper">
+    <a class="btn" @click="toggleIsPlaying">{{ isPlaying ? 'STOP' : 'PLAY' }}</a>
     <svg :width="lineWidth" height="40">
       <line
         x1="0"
@@ -34,6 +35,8 @@ import DarkBar from '~/components/DarkBar.vue'
 export default class TimeLine extends Vue {
   @Prop(Number) index!: number
   @Prop(Number) eventsLength!: number
+  @Prop(Boolean) isPlaying!: boolean
+  @Prop(Function) toggleIsPlaying!: () => void
 
   width: number = window.innerWidth
 
@@ -61,7 +64,14 @@ export default class TimeLine extends Vue {
 
 <style lang="scss" scoped>
 .wrapper {
-  text-align: center;
   color: aliceblue;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.btn {
+  cursor: pointer;
+  margin: auto 8px;
 }
 </style>

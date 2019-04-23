@@ -4,16 +4,27 @@
     <a class="btn" @click="displayPreviousEvent">&lt;</a>
     <EventCard class="event" :event="events[index]" />
     <a class="btn" @click="displayNextEvent">&gt;</a>
-    <TimeLine class="time-line" :index="index" :eventsLength="events.length" />
+    <TimeLine
+      class="time-line"
+      :toggleIsPlaying="
+        () => {
+          isPlaying = !isPlaying
+        }
+      "
+      :index="index"
+      :eventsLength="events.length"
+      :isPlaying="isPlaying"
+    />
     <GlobalEvents
       @keyup.left="displayPreviousEvent"
       @keyup.right="displayNextEvent"
+      @keyup.enter="isPlaying = !isPlaying"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Watch, Vue } from 'vue-property-decorator'
 import GlobalEvents from 'vue-global-events'
 
 import EventCard from '~/components/EventCard.vue'
@@ -34,13 +45,19 @@ import { Event } from '~/types'
 })
 export default class Index extends Vue {
   index: number = 0
+  isPlaying: boolean = false
+  intervalState: any
 
   get events(): Event[] {
     return this.$store.getters.events
   }
 
+  get isFinished() {
+    return this.events.length - 1 == this.index
+  }
+
   displayNextEvent() {
-    if (this.events.length - 1 > this.index) {
+    if (!this.isFinished) {
       this.index++
     }
   }
@@ -48,6 +65,22 @@ export default class Index extends Vue {
   displayPreviousEvent() {
     if (this.index > 0) {
       this.index--
+    }
+  }
+
+  @Watch('isPlaying')
+  playEvents() {
+    if (this.isPlaying) {
+      this.intervalState = setInterval(this.displayNextEvent, 2000)
+    } else {
+      clearInterval(this.intervalState)
+    }
+  }
+
+  @Watch('isFinished')
+  finishPlayEvents() {
+    if (this.isFinished) {
+      this.isPlaying = false
     }
   }
 }

@@ -25,7 +25,7 @@ export default class EventCard extends Vue {
   box-shadow: 0 0 16px #282e38;
   padding: 16px;
   text-align: center;
-  height: 75vh;
+  height: 80vh;
   width: 50vw;
 }
 
