@@ -41,27 +41,9 @@ export const actions = {
       const event: Event = { desc, id, name, imageUrl: image_url, wareki }
       events.push(event)
     })
-    commit('setEvents', { events })
-  },
-  updateEvents({ commit, state }: { commit: any; state: State }) {
-    const events = state.events
-    db.collection('Event').onSnapshot(spapshot => {
-      spapshot.forEach(doc => {
-        const index = events.findIndex((event: Event) => event.id == doc.id)
-        if (index === -1) {
-          return
-        } else {
-          const { id, name, desc, image_url, wareki } = doc.data()
-          const event: Event = {
-            id,
-            name,
-            desc,
-            imageUrl: image_url,
-            wareki
-          }
-          commit('editEvent', { event, index })
-        }
-      })
+    events.sort((a: Event, b: Event) => {
+      return a.wareki - b.wareki
     })
+    commit('setEvents', { events })
   }
 }

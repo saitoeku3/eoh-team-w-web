@@ -16,7 +16,7 @@ export default class DarkBar extends Vue {}
 <style lang="scss" scoped>
 .wrapper {
   background-color: #282e38;
-  height: 48px;
+  height: 5vh;
   width: 100vw;
 }
 </style>

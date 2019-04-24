@@ -1,24 +1,27 @@
 <template>
   <DarkBar class="wrapper">
-    <a class="btn" @click="toggleIsPlaying">{{ isPlaying ? 'STOP' : 'PLAY' }}</a>
-    <svg :width="lineWidth" height="40">
+    <a class="btn" @click="toggleIsPlaying">{{
+      isPlaying ? 'STOP' : 'PLAY'
+    }}</a>
+    <svg :width="lineWidth" :height="lineHeight">
       <line
         x1="0"
-        y1="24"
+        :y1="lineHeight"
         :x2="lineWidth"
-        y2="24"
+        :y2="lineHeight"
         stroke="#485260"
-        stroke-width="4"
+        stroke-width="5"
       ></line>
       <line
         x1="0"
-        y1="24"
+        :y1="lineHeight"
         :x2="progressLineWidth"
-        y2="24"
+        :y2="lineHeight"
         stroke="#fff"
-        stroke-width="4"
+        stroke-width="5"
       ></line>
     </svg>
+    <div class="index">{{ index + 1 }}/{{ eventsLength }}</div>
   </DarkBar>
 </template>
 
@@ -39,25 +42,31 @@ export default class TimeLine extends Vue {
   @Prop(Function) toggleIsPlaying!: () => void
 
   width: number = window.innerWidth
+  height: number = window.innerHeight
 
   get lineWidth() {
     return this.width * 0.5
+  }
+
+  get lineHeight() {
+    return this.height * 0.03
   }
 
   get progressLineWidth() {
     return (this.lineWidth / (this.eventsLength - 1)) * this.index
   }
 
-  handleWidthChange() {
+  handleResize() {
     this.width = window.innerWidth
+    this.height = window.innerHeight
   }
 
   created() {
-    window.addEventListener('resize', this.handleWidthChange)
+    window.addEventListener('resize', this.handleResize)
   }
 
   destroy() {
-    window.removeEventListener('resize', this.handleWidthChange)
+    window.removeEventListener('resize', this.handleResize)
   }
 }
 </script>
@@ -72,6 +81,10 @@ export default class TimeLine extends Vue {
 
 .btn {
   cursor: pointer;
+  margin: auto 8px;
+}
+
+.index {
   margin: auto 8px;
 }
 </style>

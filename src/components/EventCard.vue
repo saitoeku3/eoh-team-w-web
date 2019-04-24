@@ -1,6 +1,9 @@
 <template>
   <div class="wrapper">
-    <div class="event-name">{{ event.name }}(H.{{ event.wareki }})</div>
+    <div class="event-title">
+      <div>H.{{ event.wareki }}</div>
+      <div>{{ event.name }}</div>
+    </div>
     <img class="event-img" :src="event.imageUrl" alt="event image" />
     <p class="event-desc">{{ event.desc }}</p>
   </div>
@@ -25,7 +28,7 @@ export default class EventCard extends Vue {
   box-shadow: 0 0 16px #282e38;
   padding: 16px;
   text-align: center;
-  height: 80vh;
+  height: 70vh;
   width: 50vw;
 }
 
@@ -33,9 +36,15 @@ export default class EventCard extends Vue {
   height: 15vw;
 }
 
-.event-name {
+.event-title {
   font-size: 2rem;
   font-weight: bold;
   margin: 1rem;
+}
+
+@media screen and (max-width: 411px) {
+  .wrapper {
+    width: 70vw;
+  }
 }
 </style>
