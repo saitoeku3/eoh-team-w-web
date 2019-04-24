@@ -2,7 +2,12 @@
   <div class="container">
     <Header class="header" />
     <a class="btn" @click="displayPreviousEvent">&lt;</a>
-    <EventCard class="event" :event="events[index]" />
+    <EventCard
+      class="event"
+      :event="events[index]"
+      :eventsLength="events.length"
+      :index="index"
+    />
     <a class="btn" @click="displayNextEvent">&gt;</a>
     <TimeLine
       class="time-line"
@@ -15,6 +20,7 @@
       :eventsLength="events.length"
       :isPlaying="isPlaying"
     />
+    <!-- <Balloon class="balloon">{{ events[index].wareki }}</Balloon> -->
     <GlobalEvents
       @keyup.left="displayPreviousEvent"
       @keyup.right="displayNextEvent"
@@ -27,6 +33,7 @@
 import { Component, Watch, Vue } from 'vue-property-decorator'
 import GlobalEvents from 'vue-global-events'
 
+import Balloon from '~/components/Balloon.vue'
 import EventCard from '~/components/EventCard.vue'
 import TimeLine from '~/components/TimeLine.vue'
 import Header from '~/components/Header.vue'
@@ -34,6 +41,7 @@ import { Event } from '~/types'
 
 @Component({
   components: {
+    Balloon,
     EventCard,
     GlobalEvents,
     Header,
@@ -113,4 +121,9 @@ export default class Index extends Vue {
   font-weight: bold;
   margin: 4vw;
 }
+
+/* .balloon {
+  position: absolute;
+  bottom: 1vh; */
+/* } */
 </style>
