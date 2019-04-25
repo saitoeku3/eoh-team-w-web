@@ -1,8 +1,6 @@
 import firebase from '~/plugins/firebase'
 import { Event } from '~/types'
 
-const db = firebase.firestore()
-
 type State = {
   events: Event[]
 }
@@ -25,25 +23,18 @@ export const mutations = {
   }
 }
 
-const getImageUrl = async (fileRef: string) => {
-  if (!fileRef) {
-    return ''
-  }
-  const storageRef = firebase.storage().ref()
-  const imageUrl: string = await storageRef.child(fileRef).getDownloadURL()
-  return imageUrl
-}
-
 export const actions = {
   async fetchEvents({ commit }) {
     const events: Event[] = []
-    const snapshots = await db.collection('events').get()
-    for (const doc of snapshots.docs) {
-      const { desc, name, image_url, wareki } = doc.data()
-      const imageUrl = await getImageUrl(image_url)
-      const event: Event = { desc, name, imageUrl, wareki, hoge: image_url }
+    const snapshots = await firebase
+      .firestore()
+      .collection('events')
+      .get()
+    snapshots.forEach(snapshot => {
+      const { desc, name, image_url, wareki } = snapshot.data()
+      const event: Event = { desc, name, imageUrl: image_url, wareki }
       events.push(event)
-    }
+    })
     events.sort((a: Event, b: Event) => {
       return a.wareki - b.wareki
     })

@@ -4,12 +4,7 @@
       <div>平成{{ event.wareki === 1 ? '元' : event.wareki }}年</div>
       <div>{{ event.name }}</div>
     </div>
-    <img
-      v-show="imageUrl"
-      class="event-img"
-      :src="imageUrl"
-      alt="event"
-    />
+    <img v-show="event.imageUrl" class="event-img" :src="event.imageUrl" alt="event" />
     <p class="event-desc">{{ event.desc }}</p>
     <svg class="progress-bar" :width="lineWidth" height="5">
       <line
@@ -53,12 +48,6 @@ export default class EventCard extends Vue {
 
   get lineWidth() {
     return this.width > 411 ? this.width * 0.5 : this.width * 0.7
-  }
-
-  get imageUrl() {
-    return this.event.hoge
-      ? `https://storage.googleapis.com/${process.env.FIREBASE_PROJRCT_ID}.appspot.com/${this.event.hoge}`
-      : ''
   }
 
   handleResize() {

@@ -9,11 +9,6 @@
     />
     <TimeLine
       class="time-line"
-      :toggleIsPlaying="
-        () => {
-          isPlaying = !isPlaying
-        }
-      "
       :eventsLength="events.length"
       :index="index"
       :wareki="events[index].wareki"
