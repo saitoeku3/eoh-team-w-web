@@ -1,45 +1,41 @@
 <template>
-  <DarkBar class="wrapper">
-    <a class="btn" @click="toggleIsPlaying">{{
-      isPlaying ? 'STOP' : 'PLAY'
-    }}</a>
-    <svg :width="lineWidth" :height="lineHeight">
-      <line
-        x1="0"
-        :y1="lineHeight"
-        :x2="lineWidth"
-        :y2="lineHeight"
-        stroke="#485260"
-        stroke-width="5"
-      ></line>
-      <line
-        x1="0"
-        :y1="lineHeight"
-        :x2="progressLineWidth"
-        :y2="lineHeight"
-        stroke="#fff"
-        stroke-width="5"
-      ></line>
-    </svg>
-    <div class="index">{{ index + 1 }}/{{ eventsLength }}</div>
-  </DarkBar>
+  <div>
+    <Balloon class="balloon" :style="balloonPosition">
+      {{ wareki === 1 ? '元' : wareki }}
+    </Balloon>
+    <DarkBar class="wrapper">
+      <div class="year">元年</div>
+      <svg :width="lineWidth" :height="lineHeight">
+        <line
+          x1="0"
+          :y1="lineHeight"
+          :x2="lineWidth"
+          :y2="lineHeight"
+          stroke="#fff"
+          stroke-width="5"
+        ></line>
+      </svg>
+      <div class="year">31年</div>
+    </DarkBar>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
+import Balloon from '~/components/Balloon.vue'
 import DarkBar from '~/components/DarkBar.vue'
 
 @Component({
   name: 'TimeLine',
   components: {
+    Balloon,
     DarkBar
   }
 })
 export default class TimeLine extends Vue {
-  @Prop(Number) index!: number
   @Prop(Number) eventsLength!: number
-  @Prop(Boolean) isPlaying!: boolean
-  @Prop(Function) toggleIsPlaying!: () => void
+  @Prop(Number) index!: number
+  @Prop(Number) wareki!: number
 
   width: number = window.innerWidth
   height: number = window.innerHeight
@@ -52,8 +48,10 @@ export default class TimeLine extends Vue {
     return this.height * 0.03
   }
 
-  get progressLineWidth() {
-    return (this.lineWidth / (this.eventsLength - 1)) * this.index
+  get balloonPosition() {
+    return {
+      '--balloon-position': `${(this.lineWidth / 30) * this.wareki}px`
+    }
   }
 
   handleResize() {
@@ -79,12 +77,14 @@ export default class TimeLine extends Vue {
   text-align: center;
 }
 
-.btn {
-  cursor: pointer;
+.year {
   margin: auto 8px;
 }
 
-.index {
-  margin: auto 8px;
+.balloon {
+  bottom: 2vh;
+  color: #282e38;
+  left: calc(22.15vw + var(--balloon-position));
+  position: absolute;
 }
 </style>

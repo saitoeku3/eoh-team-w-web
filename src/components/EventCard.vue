@@ -1,10 +1,15 @@
 <template>
   <div class="wrapper">
     <div class="event-title">
-      <div>H.{{ event.wareki }}</div>
+      <div>平成{{ event.wareki === 1 ? '元' : event.wareki }}年</div>
       <div>{{ event.name }}</div>
     </div>
-    <img class="event-img" :src="event.imageUrl" alt="event image" />
+    <img
+      v-show="imageUrl"
+      class="event-img"
+      :src="imageUrl"
+      alt="event"
+    />
     <p class="event-desc">{{ event.desc }}</p>
     <svg class="progress-bar" :width="lineWidth" height="5">
       <line
@@ -20,7 +25,7 @@
         y1="4"
         :x2="(lineWidth / (eventsLength - 1)) * index"
         y2="4"
-        stroke="#485260"
+        stroke="#F36464"
         stroke-width="5"
       ></line>
     </svg>
@@ -50,6 +55,12 @@ export default class EventCard extends Vue {
     return this.width > 411 ? this.width * 0.5 : this.width * 0.7
   }
 
+  get imageUrl() {
+    return this.event.hoge
+      ? `https://storage.googleapis.com/${process.env.FIREBASE_PROJRCT_ID}.appspot.com/${this.event.hoge}`
+      : ''
+  }
+
   handleResize() {
     this.width = window.innerWidth
   }
@@ -68,8 +79,7 @@ export default class EventCard extends Vue {
 .wrapper {
   background-color: white;
   border-radius: 6px;
-  box-shadow: 0 0 16px #282e3855;
-  box-shadow: 0 0 16px #282e38;
+  box-shadow: 0 0 16px #00000023;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -79,7 +89,7 @@ export default class EventCard extends Vue {
 
 .event-img {
   margin: 0 auto;
-  width: 35vw;
+  width: 20vw;
 }
 
 .event-title {

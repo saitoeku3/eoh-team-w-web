@@ -1,7 +1,7 @@
 export type Event = {
-  id: string
-  name: string
   desc: string
   imageUrl: string
+  hoge: string
+  name: string
   wareki: number
 }
