@@ -3,7 +3,7 @@
     <Balloon class="balloon" :style="balloonPosition">
       {{ wareki === 1 ? '元' : wareki }}
     </Balloon>
-    <DarkBar class="wrapper">
+    <NavBar class="wrapper">
       <div class="year">元年</div>
       <svg :width="lineWidth" :height="lineHeight">
         <line
@@ -16,20 +16,20 @@
         ></line>
       </svg>
       <div class="year">31年</div>
-    </DarkBar>
+    </NavBar>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import Balloon from '~/components/Balloon.vue'
-import DarkBar from '~/components/DarkBar.vue'
+import NavBar from '~/components/NavBar.vue'
 
 @Component({
   name: 'TimeLine',
   components: {
     Balloon,
-    DarkBar
+    NavBar
   }
 })
 export default class TimeLine extends Vue {
@@ -78,13 +78,20 @@ export default class TimeLine extends Vue {
 }
 
 .year {
+  font-size: 1.25rem;
   margin: auto 8px;
 }
 
 .balloon {
   bottom: 2vh;
   color: #282e38;
-  left: calc(22.15vw + var(--balloon-position));
+  left: calc(22vw + var(--balloon-position));
   position: absolute;
+}
+
+@media screen and (max-width: 411px) {
+  .balloon {
+    left: calc(16.8vw + var(--balloon-position));
+  }
 }
 </style>

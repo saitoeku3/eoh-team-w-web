@@ -2,10 +2,13 @@
   <div class="container">
     <Header class="header" />
     <EventCard
-      class="event"
-      :event="events[index]"
+      v-for="event in events"
+      v-show="deisplayedEvents(event)"
+      :class="eventClass(event)"
+      :event="event"
       :eventsLength="events.length"
       :index="index"
+      :key="event.wareki"
     />
     <TimeLine
       class="time-line"
@@ -14,9 +17,9 @@
       :wareki="events[index].wareki"
     />
     <GlobalEvents
+      @keyup.enter="isPlaying = !isPlaying"
       @keyup.left="displayPreviousEvent"
       @keyup.right="displayNextEvent"
-      @keyup.enter="isPlaying = !isPlaying"
     />
   </div>
 </template>
@@ -54,6 +57,27 @@ export default class Index extends Vue {
     return this.events.length - 1 == this.index
   }
 
+  eventClass(event: Event) {
+    switch (event) {
+      case this.events[this.index - 1]:
+        return 'event is-left'
+      case this.events[this.index]:
+        return 'event is-center'
+      case this.events[this.index + 1]:
+        return 'event is-right'
+      default:
+        return
+    }
+  }
+
+  deisplayedEvents(event: Event) {
+    return (
+      event === this.events[this.index - 1] ||
+      event === this.events[this.index] ||
+      event === this.events[this.index + 1]
+    )
+  }
+
   displayNextEvent() {
     if (!this.isFinished) {
       this.index++
@@ -69,7 +93,7 @@ export default class Index extends Vue {
   @Watch('isPlaying')
   playEvents() {
     if (this.isPlaying) {
-      this.intervalState = setInterval(this.displayNextEvent, 2000)
+      this.intervalState = setInterval(this.displayNextEvent, 3000)
     } else {
       clearInterval(this.intervalState)
     }
@@ -95,6 +119,22 @@ export default class Index extends Vue {
   width: 100vw;
 }
 
+.event {
+  &.is-left {
+    position: absolute;
+    right: 80vw;
+  }
+
+  &.is-center {
+    position: absolute;
+  }
+
+  &.is-right {
+    position: absolute;
+    left: 80vw;
+  }
+}
+
 .header {
   position: absolute;
   top: 0;
@@ -111,5 +151,17 @@ export default class Index extends Vue {
   font-size: 2rem;
   font-weight: bold;
   margin: 4vw;
+}
+
+@media screen and (max-width: 411px) {
+  .event {
+    &.is-left {
+      display: none;
+    }
+
+    &.is-right {
+      display: none;
+    }
+  }
 }
 </style>

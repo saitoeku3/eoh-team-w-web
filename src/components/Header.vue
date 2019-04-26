@@ -1,17 +1,17 @@
 <template>
-  <DarkBar class="wrapper">
-    <div class="title">Title</div>
-  </DarkBar>
+  <NavBar class="wrapper">
+    <div class="title">平成最後のハッカソン</div>
+  </NavBar>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import DarkBar from '~/components/DarkBar.vue'
+import NavBar from '~/components/NavBar.vue'
 
 @Component({
   name: 'Header',
   components: {
-    DarkBar
+    NavBar
   }
 })
 export default class Header extends Vue {}
@@ -24,8 +24,7 @@ export default class Header extends Vue {}
 }
 
 .title {
-  font-size: 1.25rem;
-  font-weight: 500;
+  font-size: 1.5rem;
   margin: auto;
   text-align: center;
 }

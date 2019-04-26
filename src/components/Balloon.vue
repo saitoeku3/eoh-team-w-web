@@ -41,4 +41,12 @@ export default class Balloon extends Vue {}
     z-index: 0;
   }
 }
+
+@media screen and (max-width: 320px) {
+  .wrapper {
+    width: 2.4rem;
+    height: 2.4rem;
+    line-height: 2.4rem;
+  }
+}
 </style>

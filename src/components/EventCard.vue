@@ -4,7 +4,12 @@
       <div>平成{{ event.wareki === 1 ? '元' : event.wareki }}年</div>
       <div>{{ event.name }}</div>
     </div>
-    <img v-show="event.imageUrl" class="event-img" :src="event.imageUrl" alt="event" />
+    <img
+      v-show="event.imageUrl"
+      class="event-img"
+      :src="event.imageUrl"
+      alt="event"
+    />
     <p class="event-desc">{{ event.desc }}</p>
     <svg class="progress-bar" :width="lineWidth" height="5">
       <line
@@ -47,7 +52,7 @@ export default class EventCard extends Vue {
   width: number = window.innerWidth
 
   get lineWidth() {
-    return this.width > 411 ? this.width * 0.5 : this.width * 0.7
+    return this.width > 411 ? this.width * 0.5 : this.width * 0.88
   }
 
   handleResize() {
@@ -72,13 +77,17 @@ export default class EventCard extends Vue {
   display: flex;
   flex-direction: column;
   text-align: center;
-  height: 70vh;
+  height: 72vh;
   width: 50vw;
 }
 
 .event-img {
   margin: 0 auto;
-  width: 20vw;
+  width: 24vw;
+}
+
+.event-desc {
+  font-size: 1.5rem;
 }
 
 .event-title {
@@ -94,7 +103,12 @@ export default class EventCard extends Vue {
 
 @media screen and (max-width: 411px) {
   .wrapper {
-    width: 70vw;
+    width: 88vw;
+  }
+
+  .event-img {
+    margin: 0 auto;
+    width: 32vh;
   }
 }
 </style>
