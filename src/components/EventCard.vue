@@ -1,17 +1,19 @@
 <template>
-  <div class="wrapper">
-    <div class="event-title">
-      <div>平成{{ event.wareki === 1 ? '元' : event.wareki }}年</div>
-      <div>{{ event.name }}</div>
+  <transition>
+    <div class="wrapper">
+      <div class="event-title">
+        <div>平成{{ event.wareki === 1 ? '元' : event.wareki }}年</div>
+        <div>{{ event.name }}</div>
+      </div>
+      <img
+        v-show="event.imageUrl"
+        class="event-img"
+        :src="event.imageUrl"
+        alt="event"
+      />
+      <p class="event-desc">{{ event.desc }}</p>
     </div>
-    <img
-      v-show="event.imageUrl"
-      class="event-img"
-      :src="event.imageUrl"
-      alt="event"
-    />
-    <p class="event-desc">{{ event.desc }}</p>
-  </div>
+  </transition>
 </template>
 
 <script lang="ts">
@@ -51,6 +53,16 @@ export default class EventCard extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.v-enter-active {
+  transition: opacity 0.2s;
+  transition: transform 0.5s;
+}
+
+.v-enter {
+  opacity: 0;
+  transform: scale(0.7);
+}
+
 .wrapper {
   background-color: white;
   border-radius: 6px;

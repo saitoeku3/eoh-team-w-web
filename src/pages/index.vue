@@ -9,11 +9,7 @@
       :index="index"
       :key="event.wareki"
     />
-    <TimeLine
-      class="time-line"
-      :index="index"
-      :wareki="events[index].wareki"
-    />
+    <TimeLine class="time-line" :index="index" :wareki="events[index].wareki" />
     <GlobalEvents
       @keyup.enter="isPlaying = !isPlaying"
       @keyup.left="displayPreviousEvent"
