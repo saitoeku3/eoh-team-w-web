@@ -84,7 +84,7 @@ export default class TimeLine extends Vue {
 .balloon {
   bottom: 2vh;
   color: #282e38;
-  left: calc(22vw + var(--balloon-position));
+  left: calc(21.9vw + var(--balloon-position));
   position: absolute;
 }
 

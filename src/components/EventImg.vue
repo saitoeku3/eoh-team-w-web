@@ -1,29 +1,25 @@
 <template>
   <transition>
-    <div class="wrapper">
-      <div class="event-title">
-        <div>平成{{ event.wareki === 1 ? '元' : event.wareki }}年</div>
-        <div>{{ event.name }}</div>
-      </div>
+    <div>
+      <div class="event-year">H{{ event.wareki }}</div>
       <img
         v-show="event.imageUrl"
         class="event-img"
         :src="event.imageUrl"
         alt="event"
       />
-      <p class="event-desc">{{ event.desc }}</p>
+      <div class="event-name">{{ event.name }}</div>
     </div>
   </transition>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-
 import TimeLine from '~/components/TimeLine.vue'
 import { Event } from '~/types'
 
 @Component({
-  name: 'Event',
+  name: 'EventCard',
   components: {
     TimeLine
   }
@@ -60,48 +56,48 @@ export default class EventCard extends Vue {
 
 .v-enter {
   opacity: 0;
-  transform: scale(0.8);
+  transform: scale(0.9);
 }
 
-.wrapper {
-  background-color: white;
-  border-radius: 6px;
-  box-shadow: 0 0 16px #00000023;
-  display: flex;
-  flex-direction: column;
+.event-year {
+  color: #f36464;
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 1vh 0 1.5vh 0;
   text-align: center;
-  height: 72vh;
-  width: 50vw;
 }
 
 .event-img {
-  margin: 0 auto;
-  width: 24vw;
+  border-radius: 6px;
+  box-shadow: 0 0 16px #00000040;
+  display: flex;
+  flex-direction: column;
+  filter: brightness(0.7);
+  object-fit: cover;
+  text-align: center;
+  height: 70vh;
+  width: 50vw;
+  z-index: 0;
 }
 
-.event-desc {
-  font-size: 1.5rem;
-}
-
-.event-title {
-  font-size: 2rem;
-  font-weight: bold;
-  margin: 1rem;
-}
-
-.progress-bar {
-  margin-top: auto;
-  border-radius: 0 0 4px 4px;
+.event-name {
+  color: #ffffff;
+  font-size: 3.5rem;
+  font-weight: 450;
+  left: 6vw;
+  margin: 0;
+  position: relative;
+  top: -60vh;
 }
 
 @media screen and (max-width: 411px) {
-  .wrapper {
+  .event-img {
+    margin: 0 auto;
     width: 88vw;
   }
 
-  .event-img {
-    margin: 0 auto;
-    width: 32vh;
+  .event-name {
+    font-size: 3rem;
   }
 }
 </style>

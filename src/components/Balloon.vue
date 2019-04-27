@@ -15,38 +15,39 @@ export default class Balloon extends Vue {}
 
 <style lang="scss" scoped>
 .wrapper {
-  position: relative;
-  display: inline-block;
-  margin: 1.5em 0;
-  padding: 0 5px;
-  width: 3rem;
-  height: 3rem;
-  line-height: 3rem;
-  text-align: center;
-  color: #485260;
-  font-size: 1rem;
-  font-weight: bold;
   background: #fff;
   border-radius: 50%;
+  box-shadow: 0 0 16px #00000025;
   box-sizing: border-box;
+  color: #485260;
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: bold;
+  height: 3rem;
+  line-height: 3rem;
+  margin: 1.5em 0;
+  padding: 0 5px;
+  position: relative;
+  text-align: center;
+  width: 3rem;
 
   &:before {
-    content: '';
-    position: absolute;
-    bottom: -25px;
-    left: 50%;
-    margin-left: -15px;
     border: 15px solid transparent;
     border-top: 15px solid #fff;
+    bottom: -25px;
+    content: '';
+    left: 50%;
+    margin-left: -15px;
+    position: absolute;
     z-index: 0;
   }
 }
 
 @media screen and (max-width: 320px) {
   .wrapper {
-    width: 2.4rem;
     height: 2.4rem;
     line-height: 2.4rem;
+    width: 2.4rem;
   }
 }
 </style>

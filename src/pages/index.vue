@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Header class="header" />
-    <EventCard
+    <EventImg
       v-for="event in events"
       v-show="deisplayedEvents(event)"
       :class="eventClass(event)"
@@ -23,6 +23,7 @@ import { Component, Watch, Vue } from 'vue-property-decorator'
 import GlobalEvents from 'vue-global-events'
 
 import EventCard from '~/components/EventCard.vue'
+import EventImg from '~/components/EventImg.vue'
 import TimeLine from '~/components/TimeLine.vue'
 import Header from '~/components/Header.vue'
 import { Event } from '~/types'
@@ -32,6 +33,7 @@ const DISPLAY_INTERVAL_TIME = 3000
 @Component({
   components: {
     EventCard,
+    EventImg,
     GlobalEvents,
     Header,
     TimeLine
@@ -110,8 +112,7 @@ export default class Index extends Vue {
 <style lang="scss" scoped>
 .container {
   align-items: center;
-  background-color: #485260;
-  background-color: #f3d8d8;
+  background-color: #fff;
   display: flex;
   justify-content: center;
   height: 100vh;
