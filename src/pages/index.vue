@@ -6,13 +6,11 @@
       v-show="deisplayedEvents(event)"
       :class="eventClass(event)"
       :event="event"
-      :eventsLength="events.length"
       :index="index"
       :key="event.wareki"
     />
     <TimeLine
       class="time-line"
-      :eventsLength="events.length"
       :index="index"
       :wareki="events[index].wareki"
     />
@@ -32,6 +30,8 @@ import EventCard from '~/components/EventCard.vue'
 import TimeLine from '~/components/TimeLine.vue'
 import Header from '~/components/Header.vue'
 import { Event } from '~/types'
+
+const DISPLAY_INTERVAL_TIME = 3000
 
 @Component({
   components: {
@@ -62,7 +62,7 @@ export default class Index extends Vue {
       case this.events[this.index - 1]:
         return 'event is-left'
       case this.events[this.index]:
-        return 'event is-center'
+        return 'event'
       case this.events[this.index + 1]:
         return 'event is-right'
       default:
@@ -93,7 +93,10 @@ export default class Index extends Vue {
   @Watch('isPlaying')
   playEvents() {
     if (this.isPlaying) {
-      this.intervalState = setInterval(this.displayNextEvent, 3000)
+      this.intervalState = setInterval(
+        this.displayNextEvent,
+        DISPLAY_INTERVAL_TIME
+      )
     } else {
       clearInterval(this.intervalState)
     }
@@ -120,17 +123,13 @@ export default class Index extends Vue {
 }
 
 .event {
+  position: absolute;
+
   &.is-left {
-    position: absolute;
     right: 80vw;
   }
 
-  &.is-center {
-    position: absolute;
-  }
-
   &.is-right {
-    position: absolute;
     left: 80vw;
   }
 }

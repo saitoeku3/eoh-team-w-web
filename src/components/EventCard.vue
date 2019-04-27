@@ -11,24 +11,6 @@
       alt="event"
     />
     <p class="event-desc">{{ event.desc }}</p>
-    <svg class="progress-bar" :width="lineWidth" height="5">
-      <line
-        x1="0"
-        y1="3"
-        :x2="lineWidth"
-        y2="3"
-        stroke="#282e3855"
-        stroke-width="5"
-      ></line>
-      <line
-        x1="0"
-        y1="4"
-        :x2="(lineWidth / (eventsLength - 1)) * index"
-        y2="4"
-        stroke="#F36464"
-        stroke-width="5"
-      ></line>
-    </svg>
   </div>
 </template>
 
@@ -46,7 +28,6 @@ import { Event } from '~/types'
 })
 export default class EventCard extends Vue {
   @Prop(Event) event!: Event
-  @Prop(Number) eventsLength!: number
   @Prop(Number) index!: number
 
   width: number = window.innerWidth

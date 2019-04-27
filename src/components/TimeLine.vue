@@ -33,7 +33,6 @@ import NavBar from '~/components/NavBar.vue'
   }
 })
 export default class TimeLine extends Vue {
-  @Prop(Number) eventsLength!: number
   @Prop(Number) index!: number
   @Prop(Number) wareki!: number
 
