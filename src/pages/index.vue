@@ -1,9 +1,17 @@
 <template>
   <div class="container">
     <Header class="header" />
+    <PlayBtn
+      v-show="!isPlaying && !isFinished"
+      :handleClick="
+        () => {
+          this.isPlaying = true
+        }
+      "
+    />
     <EventImg
       v-for="event in events"
-      v-show="deisplayedEvents(event)"
+      v-show="deisplayedEvents(event) && isPlaying"
       :class="eventClass(event)"
       :event="event"
       :key="event.wareki"
@@ -28,6 +36,7 @@ import { Component, Watch, Vue } from 'vue-property-decorator'
 import GlobalEvents from 'vue-global-events'
 import EventImg from '~/components/EventImg.vue'
 import Header from '~/components/Header.vue'
+import PlayBtn from '~/components/PlayBtn.vue'
 import StampComp from '~/components/Stamp.vue'
 import TimeLine from '~/components/TimeLine.vue'
 import firebase from '~/plugins/firebase'
@@ -40,6 +49,7 @@ const DISPLAY_INTERVAL_TIME = 3000
     EventImg,
     GlobalEvents,
     Header,
+    PlayBtn,
     StampComp,
     TimeLine
   },

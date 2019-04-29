@@ -17,7 +17,7 @@ const DIAPLAY_TIME = 2000
   name: 'StampComp'
 })
 export default class StampComp extends Vue {
-  @Prop(Stamp) stamp!: Stamp
+  @Prop() stamp!: Stamp
   isDisplayed: boolean = false
 
   created() {

@@ -24,8 +24,8 @@ import { Event } from '~/types'
     TimeLine
   }
 })
-export default class EventCard extends Vue {
-  @Prop(Event) event!: Event
+export default class EventImg extends Vue {
+  @Prop() event!: Event
 
   width: number = window.innerWidth
 

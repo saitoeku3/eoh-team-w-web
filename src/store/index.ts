@@ -52,24 +52,4 @@ export const actions = {
     })
     commit('setEvents', { events })
   }
-  // async fetchStamp({ commit, state }: { commit: any; state: State }) {
-  //   firebase
-  //     .firestore()
-  //     .collection('stamps')
-  //     .onSnapshot(querySnapshot => {
-  //       querySnapshot.docs.forEach(doc => {
-  //         const id = doc.id
-  //         const { content, has_displayed } = doc.data()
-  //         const stamp: Stamp = {
-  //           content,
-  //           hasDisplayed: has_displayed,
-  //           id
-  //         }
-  //         const isIncludes = state.stamps.some(s => s.id === id)
-  //         if (!isIncludes) {
-  //           commit('setStamp', { stamp })
-  //         }
-  //       })
-  //     })
-  // }
 }
