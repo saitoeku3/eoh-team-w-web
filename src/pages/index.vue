@@ -1,14 +1,14 @@
 <template>
   <div class="container">
     <Header class="header" />
-    <PlayBtn
+    <ActionBtn
       v-show="!isPlaying && !isFinished"
-      :handleClick="
-        () => {
-          this.isPlaying = true
-        }
-      "
-    />
+      :handleClick="togglePlayingEvent"
+      ><span style="margin: 7px 0 0 4px;">▶</span>
+    </ActionBtn>
+    <ActionBtn v-show="!isPlaying && isFinished" :handleClick="replayEvents">
+      <span style="margin-top: 4px;">↺</span>
+    </ActionBtn>
     <EventImg
       v-for="event in events"
       v-show="deisplayedEvents(event) && isPlaying"
@@ -24,7 +24,7 @@
     />
     <TimeLine class="time-line" :index="index" :wareki="events[index].wareki" />
     <GlobalEvents
-      @keyup.enter="isPlaying = !isPlaying"
+      @keyup.enter="isFinished ? replayEvents() : togglePlayingEvent()"
       @keyup.left="displayPreviousEvent"
       @keyup.right="displayNextEvent"
     />
@@ -36,7 +36,7 @@ import { Component, Watch, Vue } from 'vue-property-decorator'
 import GlobalEvents from 'vue-global-events'
 import EventImg from '~/components/EventImg.vue'
 import Header from '~/components/Header.vue'
-import PlayBtn from '~/components/PlayBtn.vue'
+import ActionBtn from '~/components/ActionBtn.vue'
 import StampComp from '~/components/Stamp.vue'
 import TimeLine from '~/components/TimeLine.vue'
 import firebase from '~/plugins/firebase'
@@ -49,7 +49,7 @@ const DISPLAY_INTERVAL_TIME = 3000
     EventImg,
     GlobalEvents,
     Header,
-    PlayBtn,
+    ActionBtn,
     StampComp,
     TimeLine
   },
@@ -90,6 +90,15 @@ export default class Index extends Vue {
       event === this.events[this.index] ||
       event === this.events[this.index + 1]
     )
+  }
+
+  togglePlayingEvent() {
+    this.isPlaying = !this.isPlaying
+  }
+
+  replayEvents() {
+    this.index = 0
+    this.isPlaying = true
   }
 
   displayNextEvent() {
