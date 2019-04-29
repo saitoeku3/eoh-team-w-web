@@ -6,8 +6,13 @@
       v-show="deisplayedEvents(event)"
       :class="eventClass(event)"
       :event="event"
-      :index="index"
       :key="event.wareki"
+    />
+    <StampComp
+      style="z-index: 5;"
+      v-for="stamp in stamps"
+      :key="stamp.id"
+      :stamp="stamp"
     />
     <TimeLine class="time-line" :index="index" :wareki="events[index].wareki" />
     <GlobalEvents
@@ -21,21 +26,21 @@
 <script lang="ts">
 import { Component, Watch, Vue } from 'vue-property-decorator'
 import GlobalEvents from 'vue-global-events'
-
-import EventCard from '~/components/EventCard.vue'
 import EventImg from '~/components/EventImg.vue'
-import TimeLine from '~/components/TimeLine.vue'
 import Header from '~/components/Header.vue'
-import { Event } from '~/types'
+import StampComp from '~/components/Stamp.vue'
+import TimeLine from '~/components/TimeLine.vue'
+import firebase from '~/plugins/firebase'
+import { Event, Stamp } from '~/types'
 
 const DISPLAY_INTERVAL_TIME = 3000
 
 @Component({
   components: {
-    EventCard,
     EventImg,
     GlobalEvents,
     Header,
+    StampComp,
     TimeLine
   },
   async asyncData({ store }) {
@@ -46,6 +51,7 @@ export default class Index extends Vue {
   index: number = 0
   isPlaying: boolean = false
   intervalState: any
+  stamps: Stamp[] = []
 
   get events(): Event[] {
     return this.$store.getters.events
@@ -86,6 +92,27 @@ export default class Index extends Vue {
     if (this.index > 0) {
       this.index--
     }
+  }
+
+  created() {
+    firebase
+      .firestore()
+      .collection('stamps')
+      .onSnapshot(querySnapshot => {
+        querySnapshot.docs.forEach(doc => {
+          const id = doc.id
+          const { content, has_displayed } = doc.data()
+          const stamp: Stamp = {
+            content,
+            hasDisplayed: has_displayed,
+            id
+          }
+          const isIncludes = this.stamps.some(s => s.id === id)
+          if (!isIncludes && stamp.hasDisplayed === false) {
+            this.stamps.push(stamp)
+          }
+        })
+      })
   }
 
   @Watch('isPlaying')

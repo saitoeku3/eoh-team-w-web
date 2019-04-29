@@ -1,25 +1,37 @@
 import firebase from '~/plugins/firebase'
-import { Event } from '~/types'
+import { Event, Stamp } from '~/types'
 
 type State = {
   events: Event[]
+  stamps: Stamp[]
 }
 
 type Getters = {
   events: (state: State) => Event[]
+  stamps: (state: State) => Stamp[]
+}
+
+type Mutations = {
+  setEvents: (state: State, payload: { events: Event[] }) => void
+  setStamp: (state: State, payload: { stamp: Stamp }) => void
 }
 
 export const state = (): State => ({
-  events: []
+  events: [],
+  stamps: []
 })
 
 export const getters: Getters = {
-  events: (state: State) => state.events
+  events: (state: State) => state.events,
+  stamps: (state: State) => state.stamps
 }
 
-export const mutations = {
-  setEvents(state: State, { events }: { events: Event[] }) {
+export const mutations: Mutations = {
+  setEvents(state, { events }) {
     state.events = events
+  },
+  setStamp(state, { stamp }) {
+    state.stamps.push(stamp)
   }
 }
 
@@ -40,4 +52,24 @@ export const actions = {
     })
     commit('setEvents', { events })
   }
+  // async fetchStamp({ commit, state }: { commit: any; state: State }) {
+  //   firebase
+  //     .firestore()
+  //     .collection('stamps')
+  //     .onSnapshot(querySnapshot => {
+  //       querySnapshot.docs.forEach(doc => {
+  //         const id = doc.id
+  //         const { content, has_displayed } = doc.data()
+  //         const stamp: Stamp = {
+  //           content,
+  //           hasDisplayed: has_displayed,
+  //           id
+  //         }
+  //         const isIncludes = state.stamps.some(s => s.id === id)
+  //         if (!isIncludes) {
+  //           commit('setStamp', { stamp })
+  //         }
+  //       })
+  //     })
+  // }
 }

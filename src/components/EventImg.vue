@@ -3,8 +3,8 @@
     <div>
       <div class="event-year">H{{ event.wareki }}</div>
       <img
-        v-show="event.imageUrl"
         class="event-img"
+        v-show="event.imageUrl"
         :src="event.imageUrl"
         alt="event"
       />
@@ -26,7 +26,6 @@ import { Event } from '~/types'
 })
 export default class EventCard extends Vue {
   @Prop(Event) event!: Event
-  @Prop(Number) index!: number
 
   width: number = window.innerWidth
 
@@ -63,7 +62,7 @@ export default class EventCard extends Vue {
   color: #f36464;
   font-size: 3rem;
   font-weight: bold;
-  margin: 1vh 0 1.5vh 0;
+  margin: 0.5vh 0 3vh 0;
   text-align: center;
 }
 
@@ -75,7 +74,7 @@ export default class EventCard extends Vue {
   filter: brightness(0.7);
   object-fit: cover;
   text-align: center;
-  height: 70vh;
+  height: 65vh;
   width: 50vw;
   z-index: 0;
 }
@@ -85,9 +84,11 @@ export default class EventCard extends Vue {
   font-size: 3.5rem;
   font-weight: 450;
   left: 6vw;
+  line-height: 3.5rem;
   margin: 0;
   position: relative;
   top: -60vh;
+  width: 38vw;
 }
 
 @media screen and (max-width: 411px) {
@@ -98,6 +99,7 @@ export default class EventCard extends Vue {
 
   .event-name {
     font-size: 3rem;
+    width: 76vw;
   }
 }
 </style>
