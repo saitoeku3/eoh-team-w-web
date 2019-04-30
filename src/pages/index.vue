@@ -2,20 +2,24 @@
   <div class="container">
     <Header class="header" />
     <ActionBtn
-      v-show="!isPlaying && index === 0"
+      v-show="!isPlaying && !isFinished"
       :handleClick="togglePlayingEvent"
       ><span style="margin: 7px 0 0 4px;">▶</span>
     </ActionBtn>
     <ActionBtn v-show="!isPlaying && isFinished" :handleClick="replayEvents">
       <span style="margin-top: 4px;">↺</span>
     </ActionBtn>
-    <EventImg
-      v-for="event in events"
-      v-show="deisplayedEvents(event) && isPlaying"
-      :class="eventClass(event)"
-      :event="event"
-      :key="event.wareki"
-    />
+    <transition-group class="list" name="flip">
+      <li
+        is="EventImg"
+        v-for="event in events"
+        v-show="deisplayedEvents(event) && isPlaying"
+        :class="eventClass(event)"
+        :event="event"
+        :index="index"
+        :key="event.wareki"
+      />
+    </transition-group>
     <StampComp
       style="z-index: 5;"
       v-for="stamp in stamps"
@@ -80,7 +84,7 @@ export default class Index extends Vue {
       case this.events[this.index + 1]:
         return 'event is-right'
       default:
-        return
+        return 'event is-hidden'
     }
   }
 
@@ -165,16 +169,28 @@ export default class Index extends Vue {
   width: 100vw;
 }
 
+.list {
+  position: absolute;
+  display: flex;
+  top: 0vh;
+  left: 0vw;
+}
+
 .event {
   position: absolute;
   top: 10vh;
+  left: 25vw;
 
   &.is-left {
-    right: 80vw;
+    left: -30vw;
   }
 
   &.is-right {
     left: 80vw;
+  }
+
+  &.is-hidden {
+    opacity: 0;
   }
 }
 
@@ -204,6 +220,46 @@ export default class Index extends Vue {
 
     &.is-right {
       display: none;
+    }
+  }
+}
+
+.flip {
+  // 要素が移動するときのアニメーション設定（基本的にはtransitionにtransformを設定していればいい）
+  &-move {
+    transition: transform 1s;
+  }
+
+  // 要素が入るときのアニメーション
+  &-enter {
+    opacity: 0;
+    transform: translate3d(-2000px, -10vh, 0);
+
+    // アニメーションの初期設定（初期値とtransitionを設定する）
+    &-active {
+      opacity: 0;
+      transition: opacity 1s, transform 0.5s;
+    }
+    // アニメーション開始（目標のプロパティ値を設定する）
+    &-to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  // 要素が消える時のアニメーション
+  &-leave {
+    // アニメーションの初期設定
+    &-active {
+      // 要素が消える場合はabsoluteにする（重要！）
+      position: absolute;
+      transition: opacity 1s, transform 0.5s;
+      transform: translate3d(0, 0, 0);
+    }
+    // アニメーション開始
+    &-to {
+      opacity: 0;
+      transform: translate3d(-1000px, 0, 0);
     }
   }
 }

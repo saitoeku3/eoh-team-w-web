@@ -1,17 +1,15 @@
 <template>
-  <transition>
-    <div>
-      <div class="event-year">H{{ event.wareki }}</div>
-      <img
-        class="event-img"
-        v-show="event.imageUrl"
-        :src="event.imageUrl"
-        alt="event"
-      />
-      <div class="event-name">{{ event.name }}</div>
-      <div class="event-desc">{{ event.desc }}</div>
-    </div>
-  </transition>
+  <div>
+    <div class="event-year">H{{ event.wareki }}</div>
+    <img
+      class="event-img"
+      v-show="event.imageUrl"
+      :src="event.imageUrl"
+      alt="event"
+    />
+    <div class="event-name">{{ event.name }}</div>
+    <div class="event-desc">{{ event.desc }}</div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -49,16 +47,6 @@ export default class EventImg extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.v-enter-active {
-  transition: opacity 0.2s;
-  transition: transform 0.5s;
-}
-
-.v-enter {
-  opacity: 0;
-  transform: scale(0.9);
-}
-
 .event-year {
   color: #f36464;
   font-size: 3rem;
