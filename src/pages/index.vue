@@ -3,7 +3,7 @@
     <Header class="header" />
     <transition>
       <div v-show="!isPlaying && isFinished">
-        <div class="message">Go to the new generation 令和!</div>
+        <div class="message">Go to the new generation!</div>
         <ActionBtn style="margin: auto;" :handleClick="replayEvents">
           <span style="margin-top: 4px;">↺</span>
         </ActionBtn>
@@ -12,7 +12,8 @@
     <ActionBtn
       v-show="!isPlaying && !isFinished"
       :handleClick="togglePlayingEvent"
-      ><span style="margin: 7px 0 0 4px;">▶</span>
+    >
+      <span style="margin: 7px 0 0 4px;">▶</span>
     </ActionBtn>
     <transition-group class="list" name="flip">
       <li
@@ -225,18 +226,6 @@ export default class Index extends Vue {
   margin: 4vw;
 }
 
-@media screen and (max-width: 411px) {
-  .event {
-    &.is-left {
-      display: none;
-    }
-
-    &.is-right {
-      display: none;
-    }
-  }
-}
-
 .flip {
   // 要素が移動するときのアニメーション設定（基本的にはtransitionにtransformを設定していればいい）
   &-move {
@@ -274,6 +263,33 @@ export default class Index extends Vue {
       opacity: 0;
       transform: translate3d(-1000px, 0, 0);
     }
+  }
+}
+
+@media screen and (max-width: 411px) {
+  .event {
+    top: 8vh;
+    left: 5.5vw;
+
+    &.is-left {
+      display: none;
+    }
+
+    &.is-right {
+      display: none;
+    }
+  }
+
+  .flip {
+    &-enter {
+      opacity: 0;
+      transform: translate3d(-2000px, 0, 0);
+    }
+  }
+
+  .message {
+    font-size: 3.5rem;
+    margin: 4vh;
   }
 }
 </style>
