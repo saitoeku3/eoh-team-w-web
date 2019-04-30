@@ -13,27 +13,14 @@
       <li
         is="EventImg"
         v-for="event in events"
-        v-show="deisplayedEvents(event)"
-        :class="eventClass(event)"
-        :event="event"
-        :index="index"
-        :key="event.wareki"
-      />
-      <!-- <li
-        is="EventImg"
-        v-for="event in events"
         v-show="deisplayedEvents(event) && isPlaying"
         :class="eventClass(event)"
         :event="event"
         :index="index"
         :key="event.wareki"
-      /> -->
+      />
     </transition-group>
-    <StampComp
-      v-for="stamp in stamps"
-      :key="stamp.id"
-      :stamp="stamp"
-    />
+    <StampComp v-for="stamp in stamps" :key="stamp.id" :stamp="stamp" />
     <TimeLine class="time-line" :index="index" :wareki="events[index].wareki" />
     <GlobalEvents
       @keyup.enter="isFinished ? replayEvents() : togglePlayingEvent()"
@@ -133,13 +120,9 @@ export default class Index extends Vue {
         querySnapshot.docs.forEach(doc => {
           const id = doc.id
           const { content, has_displayed } = doc.data()
-          const stamp: Stamp = {
-            content,
-            hasDisplayed: has_displayed,
-            id
-          }
+          const stamp: Stamp = { content, id }
           const isIncludes = this.stamps.some(s => s.id === id)
-          if (!isIncludes && stamp.hasDisplayed === false) {
+          if (!isIncludes) {
             this.stamps.push(stamp)
           }
         })

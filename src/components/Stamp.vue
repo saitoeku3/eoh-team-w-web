@@ -51,7 +51,7 @@ export default class StampComp extends Vue {
         .firestore()
         .collection('stamps')
         .doc(this.stamp.id)
-        .update({ has_displayed: true })
+        .delete()
     }, DIAPLAY_TIME)
   }
 }

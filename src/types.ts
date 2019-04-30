@@ -7,6 +7,5 @@ export type Event = {
 
 export type Stamp = {
   content: string
-  hasDisplayed: boolean
   id: string
 }
