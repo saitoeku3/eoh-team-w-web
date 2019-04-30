@@ -9,6 +9,7 @@
         alt="event"
       />
       <div class="event-name">{{ event.name }}</div>
+      <div class="event-desc">{{ event.desc }}</div>
     </div>
   </transition>
 </template>
@@ -89,6 +90,19 @@ export default class EventImg extends Vue {
   position: relative;
   top: -60vh;
   width: 38vw;
+  z-index: 1;
+}
+
+.event-desc {
+  color: #ffffff;
+  font-size: 2.5rem;
+  left: 6vw;
+  line-height: 3.5rem;
+  margin: 0;
+  position: relative;
+  top: -50vh;
+  width: 38vw;
+  z-index: 1;
 }
 
 @media screen and (max-width: 411px) {
@@ -100,6 +114,10 @@ export default class EventImg extends Vue {
   .event-name {
     font-size: 3rem;
     width: 76vw;
+  }
+
+  .event-desc {
+    width: 77vw;
   }
 }
 </style>

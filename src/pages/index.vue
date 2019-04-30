@@ -2,7 +2,7 @@
   <div class="container">
     <Header class="header" />
     <ActionBtn
-      v-show="!isPlaying && !isFinished"
+      v-show="!isPlaying && index === 0"
       :handleClick="togglePlayingEvent"
       ><span style="margin: 7px 0 0 4px;">▶</span>
     </ActionBtn>
@@ -167,6 +167,7 @@ export default class Index extends Vue {
 
 .event {
   position: absolute;
+  top: 10vh;
 
   &.is-left {
     right: 80vw;
