@@ -13,15 +13,23 @@
       <li
         is="EventImg"
         v-for="event in events"
-        v-show="deisplayedEvents(event) && isPlaying"
+        v-show="deisplayedEvents(event)"
         :class="eventClass(event)"
         :event="event"
         :index="index"
         :key="event.wareki"
       />
+      <!-- <li
+        is="EventImg"
+        v-for="event in events"
+        v-show="deisplayedEvents(event) && isPlaying"
+        :class="eventClass(event)"
+        :event="event"
+        :index="index"
+        :key="event.wareki"
+      /> -->
     </transition-group>
     <StampComp
-      style="z-index: 5;"
       v-for="stamp in stamps"
       :key="stamp.id"
       :stamp="stamp"

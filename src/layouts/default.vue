@@ -20,7 +20,7 @@ html {
   body {
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    overflow: hidden;
     height: 100vh;
     width: 100vw;
   }

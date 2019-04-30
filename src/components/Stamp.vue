@@ -1,6 +1,13 @@
 <template>
   <transition>
-    <div class="wrapper" v-show="isDisplayed">
+    <div
+      class="wrapper"
+      :style="{
+        left: `${positionX}vw`,
+        top: `${positionY}vh`
+      }"
+      v-show="isDisplayed"
+    >
       {{ stamp.content }}
     </div>
   </transition>
@@ -19,8 +26,22 @@ const DIAPLAY_TIME = 2000
 export default class StampComp extends Vue {
   @Prop() stamp!: Stamp
   isDisplayed: boolean = false
+  positionX: number = 0
+  positionY: number = 0
+
+  calcPosition() {
+    if (Math.random() > 0.5) {
+      this.positionY = Math.random() * 10
+    } else {
+      this.positionY = 80
+    }
+    do {
+      this.positionX = Math.random() * 85
+    } while (this.positionX < 82 && 84 < this.positionX)
+  }
 
   created() {
+    this.calcPosition()
     setTimeout(() => {
       this.isDisplayed = true
     }, 1)
@@ -48,7 +69,9 @@ export default class StampComp extends Vue {
 }
 
 .wrapper {
-  font-size: 5rem;
+  font-size: 8rem;
   margin: 8px;
+  z-index: 5;
+  position: absolute;
 }
 </style>

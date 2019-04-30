@@ -1,10 +1,8 @@
 <template>
   <div>
-    <Balloon class="balloon" :style="balloonPosition">
-      {{ wareki === 1 ? '元' : wareki }}
-    </Balloon>
+    <Balloon class="balloon" :style="balloonPosition">{{ wareki }}</Balloon>
     <NavBar class="wrapper">
-      <div class="year">元年</div>
+      <div class="year">H1</div>
       <svg :width="lineWidth" :height="lineHeight">
         <line
           x1="0"
@@ -15,7 +13,7 @@
           stroke-width="5"
         ></line>
       </svg>
-      <div class="year">31年</div>
+      <div class="year">H31</div>
     </NavBar>
   </div>
 </template>
