@@ -1,13 +1,18 @@
 <template>
   <div class="container">
     <Header class="header" />
+    <transition>
+      <div v-show="!isPlaying && isFinished">
+        <div class="message">メッセージ</div>
+        <ActionBtn style="margin: auto;" :handleClick="replayEvents">
+          <span style="margin-top: 4px;">↺</span>
+        </ActionBtn>
+      </div>
+    </transition>
     <ActionBtn
       v-show="!isPlaying && !isFinished"
       :handleClick="togglePlayingEvent"
       ><span style="margin: 7px 0 0 4px;">▶</span>
-    </ActionBtn>
-    <ActionBtn v-show="!isPlaying && isFinished" :handleClick="replayEvents">
-      <span style="margin-top: 4px;">↺</span>
     </ActionBtn>
     <transition-group class="list" name="flip">
       <li
@@ -151,10 +156,19 @@ export default class Index extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.v-enter-active {
+  transition: opacity 3s;
+}
+
+.v-enter {
+  opacity: 0;
+}
+
 .container {
   align-items: center;
   background-color: #fff;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   height: 100vh;
   width: 100vw;
@@ -183,6 +197,14 @@ export default class Index extends Vue {
   &.is-hidden {
     opacity: 0;
   }
+}
+
+.message {
+  color: #f36464;
+  filter: drop-shadow(0 3px 2px #00000049);
+  font-weight: bold;
+  font-size: 6rem;
+  margin: 8vh;
 }
 
 .header {

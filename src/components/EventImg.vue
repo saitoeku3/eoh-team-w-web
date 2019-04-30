@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="event-year">H{{ event.wareki }}</div>
+    <div class="event-year">
+      {{ event.wareki === 32 ? '' : `H${event.wareki}` }}
+    </div>
     <img
       class="event-img"
       v-show="event.imageUrl"

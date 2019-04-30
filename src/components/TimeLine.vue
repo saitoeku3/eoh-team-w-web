@@ -1,6 +1,8 @@
 <template>
   <div>
-    <Balloon class="balloon" :style="balloonPosition">{{ wareki }}</Balloon>
+    <Balloon class="balloon" v-show="wareki !== 32" :style="balloonPosition">{{
+      wareki === 32 ? '' : wareki
+    }}</Balloon>
     <NavBar class="wrapper">
       <div class="year">H1</div>
       <svg :width="lineWidth" :height="lineHeight">
@@ -81,7 +83,7 @@ export default class TimeLine extends Vue {
 
 .balloon {
   bottom: 2vh;
-  color: #282e38;
+  color: #f36464;
   left: calc(21.9vw + var(--balloon-position));
   position: absolute;
 }

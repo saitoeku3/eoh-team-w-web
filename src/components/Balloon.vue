@@ -19,7 +19,6 @@ export default class Balloon extends Vue {}
   border-radius: 50%;
   box-shadow: 0 0 16px #00000025;
   box-sizing: border-box;
-  color: #485260;
   display: inline-block;
   font-size: 1rem;
   font-weight: bold;
