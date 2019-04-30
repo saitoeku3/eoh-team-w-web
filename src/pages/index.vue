@@ -3,7 +3,7 @@
     <Header class="header" />
     <transition>
       <div v-show="!isPlaying && isFinished">
-        <div class="message">メッセージ</div>
+        <div class="message">Go to the new generation 令和!</div>
         <ActionBtn style="margin: auto;" :handleClick="replayEvents">
           <span style="margin-top: 4px;">↺</span>
         </ActionBtn>
@@ -166,7 +166,7 @@ export default class Index extends Vue {
 
 .container {
   align-items: center;
-  background-color: #fff;
+  background-color: #ffeeee;
   display: flex;
   flex-direction: column;
   justify-content: center;
